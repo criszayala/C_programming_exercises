@@ -1,0 +1,10 @@
+{
+//Código en configuración de Visual Studio Code (Archivo .JSON) para que VSC reconozca archivos PSeudocódigos .psc
+//También se debe el archivo 'pseudoconfig' en C:>users>Cristian archivo
+//PSeint
+"files.associations": {
+    "*.psc": "pseudocode"
+  },
+"editor.semanticHighlighting.enabled": true,
+//PSeint
+}
