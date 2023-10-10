@@ -1,5 +1,5 @@
 //Se incluye la biblioteca estándar de entrada/salida para poder usar las funciones printf y scanf
-#include <stdio.h>
+#include <stdio.h> 
 
 //Se define las constantes
 #define COSTO_POR_ENTREGA 0.35
