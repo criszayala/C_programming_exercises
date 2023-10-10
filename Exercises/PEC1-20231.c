@@ -7,9 +7,9 @@
 
 //Función principal del programa
 int main() {
-    /*Se declaran las variables que vamos a utilizar:
-    paquetesEntregados y paquetesDevueltos para almacenar la cantidad de paquetes,
-    y totalAPagar para el cálculo final*/
+    //Se declaran las variables que vamos a utilizar:
+    //paquetesEntregados y paquetesDevueltos para almacenar la cantidad de paquetes,
+    //y totalAPagar para el cálculo final
     int paquetesEntregados, paquetesDevueltos;
     float totalAPagar;
 
@@ -27,8 +27,8 @@ int main() {
     printf("PACKAGES RETURNED?\n");
     scanf("%d", &paquetesDevueltos);
 
-    /*Calculamos el total a pagar. Multiplicamos la cantidad de paquetes entregados y devueltos
-    por sus respectivos costos y sumamos los resultados*/
+    //Calculamos el total a pagar. Multiplicamos la cantidad de paquetes entregados y devueltos
+    //por sus respectivos costos y sumamos los resultados
     totalAPagar = (paquetesEntregados * COSTO_POR_ENTREGA) + (paquetesDevueltos * COSTO_POR_DEVOLUCION);
 
     //Se imprime "Ouput" para indicar la sección de salida de datos
