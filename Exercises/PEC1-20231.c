@@ -14,12 +14,14 @@ int main() {
     float totalAPagar;
 
     // Pedimos al usuario el número de paquetes entregados.
-    printf("Introduce el total de paquetes entregados: ");
+    //printf("Introduce el total de paquetes entregados: ");
+    printf("PACKAGES DELIVERED? ");
     // Leemos el número introducido por el usuario y lo almacenamos en la variable paquetesEntregados.
     scanf("%d", &paquetesEntregados);
 
     // Repetimos el proceso para los paquetes devueltos.
-    printf("Introduce el total de paquetes devueltos: ");
+    //printf("Introduce el total de paquetes devueltos: ");
+    printf("PACKAGES RETURNED? ");
     scanf("%d", &paquetesDevueltos);
 
     // Calculamos el total a pagar. Multiplicamos la cantidad de paquetes entregados y devueltos
@@ -27,7 +29,8 @@ int main() {
     totalAPagar = (paquetesEntregados * COSTO_POR_ENTREGA) + (paquetesDevueltos * COSTO_POR_DEVOLUCION);
 
     // Mostramos el resultado al usuario. Usamos %.2f para mostrar el número con dos decimales.
-    printf("El importe que el marketplace debe pagar al punto de recogida es: %.2f euros\n", totalAPagar);
+    //printf("El importe que el marketplace debe pagar al punto de recogida es: %.2f euros\n", totalAPagar);
+    printf("TOTAL AMOUNT: %.2f \n", totalAPagar);
 
     // Retornamos 0 para indicar que el programa se ejecutó con éxito.
     return 0;
