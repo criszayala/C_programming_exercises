@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <stdbool.h>
 
-// Definición de constantes
+// Definición de constantes para las condiciones
 #define EDAD_MINIMA 16
 #define EDAD_MINIMA_ACOMPANADO 12
 #define EDAD_MAXIMA_ACOMPANADO 15
@@ -9,39 +8,39 @@
 #define ALTURA_MAXIMA 1.95
 
 int main() {
-    // Declaración de variables
-    int edad;
-    bool acompanado, estresAltura, estresVelocidad;
+    //Se realiza la delaración de variables
+    int edad, acompanado, estadoSalud;
     float altura;
 
-    // Entrada de datos
-    printf("Introduzca la edad del visitante: ");
+    //INPUT SOLICITADO
+    printf("INPUT\n");
+    printf("AGE?\n");
     scanf("%d", &edad);
 
-    printf("%cEst%c acompa%cado de un adulto%c %c1 para s%c%c 0 para no%c: \n", 168, 160, 164, 63, 40, 161, 44, 41);
+    printf("ACCOMPANIED BY AN ADULT (0-FALSE, 1-TRUE)?\n");
     scanf("%d", &acompanado);
 
-    printf("Introduzca la altura del visitante en metros %cejemplo: 1.75%c: \n", 40, 41);
+    printf("HEIGHT?\n");
     scanf("%f", &altura);
 
-    printf("%cLe estresa las alturas%c %c1 para si%c%c 0 para no%c: \n", 168, 63, 40, 161, 44, 41);
-    scanf("%d", &estresAltura);
+    printf("HEALTH STATUS (0-OK, 1-FEAR OF HEIGHTS, 2-FEAR OF HIGH SPEEDS)?\n");
+    scanf("%d", &estadoSalud);
 
-    printf("%cLe estresa las altas velocidades%c %c1 para s%c%c 0 para no%c: \n", 168, 63, 40, 161, 44, 41);
-    scanf("%d", &estresVelocidad);
-
-    // Evaluación de condiciones
-    if (edad >= EDAD_MINIMA ||
-       (edad >= EDAD_MINIMA_ACOMPANADO && edad <= EDAD_MAXIMA_ACOMPANADO && acompanado)) {
-        if (altura >= ALTURA_MINIMA && altura <= ALTURA_MAXIMA && !estresAltura && !estresVelocidad) {
-            printf("El visitante puede subir a la montaña rusa.\n");
-        } else {
-            printf("El visitante no cumple con los requisitos de estatura o salud.\n");
+    //Se evalúa las condiciones
+    int puedeSubir = 0;  //Inicialmente asumo que no puede subir
+    if ((edad >= EDAD_MINIMA) || 
+        (edad >= EDAD_MINIMA_ACOMPANADO && edad <= EDAD_MAXIMA_ACOMPANADO && acompanado == 1)) {
+        if (altura >= ALTURA_MINIMA && altura <= ALTURA_MAXIMA && estadoSalud == 0) {
+            puedeSubir = 1;  //Si cumple las condiciones cambiamos a 1 (Puede subir)
         }
-    } else {
-        printf("El visitante no cumple con los requisitos de edad.\n");
     }
 
-    // Retornamos 0 para indicar que el programa se ejecutó con éxito.
+    // OUTPUT SOLICITADO
+    printf("OUTPUT\n");
+    printf("CAN RIDE (0-FALSE, 1-TRUE): %d\n", puedeSubir);
+    
+    getchar();  //Se limpia el buffer del último '\n'
+    getchar();  //Se Espera una entrada del teclado antes de terminar
+
     return 0;
 }
