@@ -18,16 +18,16 @@ int main() {
     printf("Introduzca la edad del visitante: ");
     scanf("%d", &edad);
 
-    printf("¿Está acompañado de un adulto? (1 para sí, 0 para no): ");
+    printf("%cEst%c acompa%cado de un adulto%c %c1 para s%c%c 0 para no%c: \n", 168, 160, 164, 63, 40, 161, 44, 41);
     scanf("%d", &acompanado);
 
-    printf("Introduzca la altura del visitante en metros (ejemplo: 1.75): ");
+    printf("Introduzca la altura del visitante en metros %cejemplo: 1.75%c: \n", 40, 41);
     scanf("%f", &altura);
 
-    printf("¿Le estresa las alturas? (1 para sí, 0 para no): ");
+    printf("%cLe estresa las alturas%c %c1 para si%c%c 0 para no%c: \n", 168, 63, 40, 161, 44, 41);
     scanf("%d", &estresAltura);
 
-    printf("¿Le estresa las altas velocidades? (1 para sí, 0 para no): ");
+    printf("%cLe estresa las altas velocidades%c %c1 para s%c%c 0 para no%c: \n", 168, 63, 40, 161, 44, 41);
     scanf("%d", &estresVelocidad);
 
     // Evaluación de condiciones
