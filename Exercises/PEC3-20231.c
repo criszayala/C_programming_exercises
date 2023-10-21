@@ -16,7 +16,7 @@ int main() {
         scanf("%d", &j);
         printf("VALUE?\n");
         scanf("%d", &value);
-        matrix[i-1][j-1] = value; // -1 porque los índices en C comienzan desde 0
+        matrix[i-1][j-1] = value; //Usamos el -1 porque los índices en C comienzan desde 0
     }
 
     //Verificación para saber si la matríz es simétrica
