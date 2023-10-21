@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-// Definición de constantes para las condiciones
+//Definición de constantes para las condiciones
 #define EDAD_MINIMA 16
 #define EDAD_MINIMA_ACOMPANADO 12
 #define EDAD_MAXIMA_ACOMPANADO 15

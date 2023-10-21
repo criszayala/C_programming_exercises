@@ -1,14 +1,15 @@
+//Se incluye la biblioteca estándar de entrada/salida para poder usar las funciones printf y scanf
 #include <stdio.h>
 
 #define SIZE 3
 
 int main() {
     int matriz[SIZE][SIZE];
-    int is_symmetric = 1; // Asumimos que es simétrica hasta que se demuestre lo contrario.
+    int is_symmetric = 1; //Se asume que la matríz es simétrica hasta que se demuestre lo contrario.
 
     printf("INPUT\n");
 
-    // Entrada de datos
+    //Ingreso de datos
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             printf("I-COORD?\n");
@@ -20,7 +21,7 @@ int main() {
         }
     }
 
-    // Verificar si es simétrica
+    //Verificamos si la matríz es simétrica
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (matriz[i][j] != matriz[j][i]) {
@@ -33,12 +34,12 @@ int main() {
         }
     }
 
-    // Salida de datos
+    //Salida de datos
     printf("OUTPUT\n");
     printf("IS SYMMETRIC (0-FALSE, 1-TRUE): %d\n", is_symmetric);
 
+    getchar();  //Se limpia el buffer del último '\n'
+    getchar();  //Se Espera una entrada del teclado antes de cerrar la terminal
+
     return 0;
 }
-```
-
-El código ahora tiene las etiquetas solicitadas. Por favor, avísame si hay algo más que pueda ayudarte.
