@@ -1,0 +1,31 @@
+===========================================================================
+======== Execution Console
+===========================================================================
+
+:::::: Executing .... test1.data
+INPUT
+PACKAGES DELIVERED?
+PACKAGES RETURNED?
+OUTPUT
+TOTAL AMOUNT: 725.90
+
+:::::: Executing .... test2.data
+INPUT
+PACKAGES DELIVERED?
+PACKAGES RETURNED?
+OUTPUT
+TOTAL AMOUNT: 52.50
+
+:::::: Executing .... test3.data
+INPUT
+PACKAGES DELIVERED?
+PACKAGES RETURNED?
+OUTPUT
+TOTAL AMOUNT: 11.70
+
+:::::: Executing .... test4.data
+INPUT
+PACKAGES DELIVERED?
+PACKAGES RETURNED?
+OUTPUT
+TOTAL AMOUNT: 0.00
