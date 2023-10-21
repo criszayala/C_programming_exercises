@@ -4,39 +4,34 @@
 #define SIZE 3
 
 int main() {
-    int matriz[SIZE][SIZE];
-    int is_symmetric = 1; //Se asume que la matríz es simétrica hasta que se demuestre lo contrario.
+    int matrix[SIZE][SIZE];
+    int i, j, value;
 
+    //Ingreso de datos de la matríz 
     printf("INPUT\n");
-
-    //Ingreso de datos
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            printf("I-COORD?\n");
-            scanf("%d", &i);
-            printf("J-COORD?\n");
-            scanf("%d", &j);
-            printf("VALUE?\n");
-            scanf("%d", &matriz[i][j]);
-        }
+    for(int k = 0; k < SIZE*SIZE; k++) {
+        printf("I-COORD?\n");
+        scanf("%d", &i);
+        printf("J-COORD?\n");
+        scanf("%d", &j);
+        printf("VALUE?\n");
+        scanf("%d", &value);
+        matrix[i-1][j-1] = value; // -1 porque los índices en C comienzan desde 0
     }
 
-    //Verificamos si la matríz es simétrica
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            if (matriz[i][j] != matriz[j][i]) {
-                is_symmetric = 0;
-                break;
+    //Verificación para saber si la matríz es simétrica
+    for(i = 0; i < SIZE; i++) {
+        for(j = i+1; j < SIZE; j++) { //j comienza desde i+1 para solo considerar la parte superior de la matriz
+            if(matrix[i][j] != matrix[j][i]) {
+                printf("OUTPUT\n");
+                printf("IS SYMMETRIC (0-FALSE, 1-TRUE): 0\n");
+                return 0;
             }
         }
-        if (!is_symmetric) {
-            break;
-        }
     }
 
-    //Salida de datos
     printf("OUTPUT\n");
-    printf("IS SYMMETRIC (0-FALSE, 1-TRUE): %d\n", is_symmetric);
+    printf("IS SYMMETRIC (0-FALSE, 1-TRUE): 1\n");
 
     getchar();  //Se limpia el buffer del último '\n'
     getchar();  //Se Espera una entrada del teclado antes de cerrar la terminal
