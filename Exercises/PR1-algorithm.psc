@@ -21,7 +21,8 @@ algorithm UOCStadium
         numSupporters: integer;
         recoveredSupporters: vector[MAX_SUPPORTERS] of integer;
         supporterMembershipTypes: vector[MAX_SUPPORTERS] of tMembershipType;
-        {...}
+        sumaAge: integer;
+        averageAge: real;
     end var
 
     {Exercise 2.1}
@@ -41,14 +42,28 @@ algorithm UOCStadium
         
     {Exercise 2.2}
     {Data input}
-    {...}
+    i := 1;
+    sumaAge := 0;
+    averageAge := 0;
+    
     for i := 1 to numSupporters do
-        writeString("SUPPORTER #");
-        {...}
+        writeString("SUPPORTER #" + toString(i););
+        supporterIds[i] := i
+
+        writeString("AGE (AN INTEGER)?");
+        supporterAges[i] := readInteger();
+        sumaAge: = sumaAge + supporterAges[i];
+
+        writeString("HAS RECORDS (0-FALSE, 1-TRUE)? ");
+        supporterRecords[i] := readBoolean();
+
+        writeString("MEMBERSHIP YEARS (AN INTEGER)?");
+        membershipYears[i] := readInteger();
+         i = i + 1;
     end for
 
     {Calculate the average age}
-    {...}
+    averageAge := (sumaAge / numSupporters);
 
     {Exercise 2.3}
     {Data input}
