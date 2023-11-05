@@ -35,35 +35,35 @@ algorithm UOCStadium
         numSupporters := readInteger();
 
     {Data validation}
-        while (numSupporters < MIN_SUPPORTERS) or (numSupporters > MAX_SUPPORTERS) do
-            writeString("INVALID DATA, TRY AGAIN!")
-            writeString("NUMBER OF SUPPORTERS(1-10)?")
-            numSupporters := readInteger()
-        end while
+    while (numSupporters < MIN_SUPPORTERS) or (numSupporters > MAX_SUPPORTERS) do
+        writeString("INVALID DATA, TRY AGAIN!")
+        writeString("NUMBER OF SUPPORTERS(1-10)?")
+        numSupporters := readInteger()
+    end while
         
     {Exercise 2.2}
     {Data input}
     sumaAge := 0;
     averageAge := 0.0;
-    
+
     for i := 1 to numSupporters do
         writeString("SUPPORTER #" + toString(i)); 
         supporterIds[i] := i
 
         writeString("AGE (AN INTEGER)?"); 
         supporterAges[i] := readInteger();
-        sumaAge: = sumaAge + supporterAges[i]; {Acumulo la suma de edades de cada uno}
+        sumaAge := sumaAge + supporterAges[i]; {Acumulo la suma de edades de cada uno}
 
         writeString("HAS RECORDS (0-FALSE, 1-TRUE)? ");
         supporterRecords[i] := readBoolean();
 
         writeString("MEMBERSHIP YEARS (AN INTEGER)?");
-        membershipYears := readInteger();
+        membershipYears[i] := readInteger();
 
         {Se realiza la asignación de tipos de membresía basado en los años de membresía del enunciado}
-        if membershipYears <= BASE_MEMBERSHIP_YEARS then
+        if membershipYears[i] <= BASE_MEMBERSHIP_YEARS then
             supporterMembershipTypes[i] := BASE;
-        elseif membershipYears <= SILVER_MEMBERSHIP_YEARS then
+        elseif membershipYears[i] <= SILVER_MEMBERSHIP_YEARS then
             supporterMembershipTypes[i] := SILVER;
         else
             supporterMembershipTypes[i] := GOLD;
@@ -100,11 +100,9 @@ algorithm UOCStadium
 
     {Data Processing}
     for i := 1 to numSupporters do
-        if (supporterMembershipTypes[i] = membershipTypeToRecover) and
+        if (supporterMembershipTypes[i] = selectedMembershipType) and
             (supporterAges[i] <= averageAge) and
-            (supporterRecords[i] = false) then
-
-            {Agrego supporters a la lista recuperada}
+            (not supporterRecords[i]) then
             setLength(recoveredSupporters, length(recoveredSupporters) + 1);
             recoveredSupporters[length(recoveredSupporters)] := supporterIds[i];
         end if
@@ -120,8 +118,8 @@ algorithm UOCStadium
         for i := 1 to length(recoveredSupporters) do
             writeString("SUPPORTER ID: " + toString(recoveredSupporters[i]));
             writeString("AGE: " + toString(supporterAges[recoveredSupporters[i]]));
-            writeString("HAS RECORDS (0-FALSE, 1-TRUE): " + toString(supporterRecords[recoveredSupporters[i]]));
-            writeString("MEMBERSHIP TYPE (1-BASE, 2-SILVER, 3-GOLD): " + toString(inputType));
+            writeString("HAS RECORDS (0-FALSE, 1-TRUE): " + toString(if supporterRecords[recoveredSupporters[i]] then 1 else 0));
+            writeString("MEMBERSHIP TYPE: " + toString(supporterMembershipTypes[recoveredSupporters[i]]));
         end for
     end if
 
