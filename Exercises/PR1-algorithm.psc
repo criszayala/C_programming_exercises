@@ -23,6 +23,7 @@ algorithm UOCStadium
         supporterMembershipTypes: vector[MAX_SUPPORTERS] of tMembershipType;
         sumaAge: integer;
         averageAge: real;
+        inputType: integer;
     end var
 
     {Exercise 2.1}
@@ -42,58 +43,86 @@ algorithm UOCStadium
         
     {Exercise 2.2}
     {Data input}
-    i := 1;
     sumaAge := 0;
-    averageAge := 0;
+    averageAge := 0.0;
     
     for i := 1 to numSupporters do
-        writeString("SUPPORTER #" + toString(i););
+        writeString("SUPPORTER #" + toString(i)); 
         supporterIds[i] := i
 
-        writeString("AGE (AN INTEGER)?");
+        writeString("AGE (AN INTEGER)?"); 
         supporterAges[i] := readInteger();
-        sumaAge: = sumaAge + supporterAges[i];
+        sumaAge: = sumaAge + supporterAges[i]; {Acumulo la suma de edades de cada uno}
 
         writeString("HAS RECORDS (0-FALSE, 1-TRUE)? ");
         supporterRecords[i] := readBoolean();
 
         writeString("MEMBERSHIP YEARS (AN INTEGER)?");
-        membershipYears[i] := readInteger();
-         i = i + 1;
+        membershipYears := readInteger();
+
+        {Se realiza la asignación de tipos de membresía basado en los años de membresía del enunciado}
+        if membershipYears <= BASE_MEMBERSHIP_YEARS then
+            supporterMembershipTypes[i] := BASE;
+        elseif membershipYears <= SILVER_MEMBERSHIP_YEARS then
+            supporterMembershipTypes[i] := SILVER;
+        else
+            supporterMembershipTypes[i] := GOLD;
+        end if
     end for
 
     {Calculate the average age}
-    averageAge := (sumaAge / numSupporters);
+     if numSupporters > 0 then {No se solicita pero se realiza comprobación para que no haya división por cero}
+        averageAge := sumaAge / numSupporters;
+    end if
 
     {Exercise 2.3}
     {Data input}
     writeString("LOOKING FOR SUPPORTERS");
     writeString("MEMBERSHIP TYPE (1-BASE, 2-SILVER, 3-GOLD)?");
-    {...}
+    inputType := readInteger();
+
+    {Acá voy a validar que la entrada sea correcta, en caso contrario muestro el mensaje INVALID TYPE, TRY AGAIN! }
+    while (inputType < 1) or (inputType > 3) do
+        writeString("INVALID TYPE, TRY AGAIN!");
+        writeString("MEMBERSHIP TYPE (1-BASE, 2-SILVER, 3-GOLD)?");
+        inputType := readInteger();
+    end while
+
+    {Una vez validada la entrada, se mapea a tMembershipType }
+    case inputType of
+        1: selectedMembershipType := BASE;
+        2: selectedMembershipType := SILVER;
+        3: selectedMembershipType := GOLD;
+    end case
+
+    {Ahora inicializo la lista de Supporter recuperada}
+    setLength(recoveredSupporters, 0);
 
     {Data Processing}
-    {...};
     for i := 1 to numSupporters do
-        {...}
+        if (supporterMembershipTypes[i] = membershipTypeToRecover) and
+            (supporterAges[i] <= averageAge) and
+            (supporterRecords[i] = false) then
+
+            {Agrego supporters a la lista recuperada}
+            setLength(recoveredSupporters, length(recoveredSupporters) + 1);
+            recoveredSupporters[length(recoveredSupporters)] := supporterIds[i];
+        end if
     end for
 
-    {Data processing and Data Outputs}
     {Exercise 2.4}
-    writeString("RESULTS");
-    writeString("AVERAGE SUPPORTER AGE:");
-    {...}
+    {Data Outputs}
+    if length(recoveredSupporters) = 0 then
+        writeString("NO SUPPORTERS RECOVERED.");
+    else
+        writeString("RESULTS");
+        writeString("AVERAGE SUPPORTER AGE: " + toString(averageAge));
+        for i := 1 to length(recoveredSupporters) do
+            writeString("SUPPORTER ID: " + toString(recoveredSupporters[i]));
+            writeString("AGE: " + toString(supporterAges[recoveredSupporters[i]]));
+            writeString("HAS RECORDS (0-FALSE, 1-TRUE): " + toString(supporterRecords[recoveredSupporters[i]]));
+            writeString("MEMBERSHIP TYPE (1-BASE, 2-SILVER, 3-GOLD): " + toString(inputType));
+        end for
+    end if
+
 end algorithm
-
-
-
-
-
-ticketing
-- Venta de localidades de cada partido
-- Eventos
-
-Información para generar perfiles de aficionados para futuras campañas de publicidad
-Grupo de aficionados | Ingreso por el usuario
-Carecer de antecedentes penales
-Edad sea igual o menor a la media de edad del grupo de aficionados
-
