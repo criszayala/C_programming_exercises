@@ -3,10 +3,10 @@ const
     MAX_SUPPORTERS: integer = 10; {Max. number of supporters}
     BASE_MEMBERSHIP_YEARS: integer = 5; {Max. years base membership}
     SILVER_MEMBERSHIP_YEARS: integer = 10; {Max. years silver membership}
-    end const
+end const
 
 type
-    tMembershipType = {BASE, SILVER, GOLD}
+    tMembershipType = enumeration {BASE, SILVER, GOLD}
 end type
 
 algorithm UOCStadium
@@ -15,8 +15,8 @@ algorithm UOCStadium
         supporterIds: vector[MAX_SUPPORTERS] of integer;
         supporterAges: vector[MAX_SUPPORTERS] of integer;
         supporterRecords: vector[MAX_SUPPORTERS] of boolean;
-        membershipYears: integer;
-
+        membershipYears: vector[MAX_SUPPORTERS] of integer; {Cambio la variable a vector}
+        
         i: integer;
         numSupporters: integer;
         recoveredSupporters: vector[MAX_SUPPORTERS] of integer;
@@ -24,6 +24,8 @@ algorithm UOCStadium
         sumaAge: integer;
         averageAge: real;
         inputType: integer;
+        selectedMembershipType: tMembershipType;
+
     end var
 
     {Exercise 2.1}
