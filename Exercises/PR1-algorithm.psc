@@ -73,9 +73,8 @@ algorithm UOCStadium
     end for
 
     {Calculate the average age}
-     if numSupporters > 0 then {No se solicita pero se realiza comprobación para que no haya división por cero}
-        averageAge := sumaAge / numSupporters;
-    end if
+    averageAge := sumaAge / numSupporters;
+    
 
     {Exercise 2.3}
     {Data input}
@@ -90,7 +89,7 @@ algorithm UOCStadium
         inputType := readInteger();
     end while
 
-    {Una vez validada la entrada, se mapea a tMembershipType }
+    {Una vez que valido la entrada mapeo tMembershipType }
     case inputType of
         1: selectedMembershipType := BASE;
         2: selectedMembershipType := SILVER;
