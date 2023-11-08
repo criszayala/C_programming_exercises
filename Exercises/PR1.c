@@ -24,7 +24,7 @@ int main() {
         
     //Se realiza la solicitud de cantidad de SUPPORTERS
     printf("INPUT DATA\n");
-    printf("NUMBER OF SUPPORTERS(1-10)?\n");
+    printf("NUMBER OF SUPPORTERS (1-10)?\n");
     scanf("%d", &numSupporters);
 
     //Se realiza validación del número de SUPPORTERS ingresado
@@ -38,7 +38,7 @@ int main() {
     for (int i = 0; i < numSupporters; i++) {
         printf("SUPPORTER #%d\n", i + 1);
 
-        printf("SUPPORTER ID (AN INTEGER)?\n");
+        printf("ID (AN INTEGER)?\n");
         scanf("%d", &supporterIds[i]);
 
         printf("AGE (AN INTEGER)?\n");
@@ -87,25 +87,21 @@ int main() {
     }
 
     //Se imprime por pantall los resultados
+    printf("RESULTS\n");
     if (recoveredCount == 0) {
+        printf("AVERAGE SUPPORTER AGE: %.2f\n", averageAge);
         printf("NO SUPPORTERS RECOVERED.\n");
     } else {
-        printf("RESULTS\n");
         printf("AVERAGE SUPPORTER AGE: %.2f\n", averageAge);
 
         for (int i = 0; i < recoveredCount; i++) {
             int id = recoveredSupporters[i];
             printf("SUPPORTER ID: %d\n", id);
             printf("AGE: %d\n", supporterAges[id - 1]);
+            printf("HAS RECORDS (0-FALSE, 1-TRUE): %d\n", supporterRecords[id - 1]);
 
-            //Utilizo if/else para imprimir si el SUPPORTER tiene o no registros
-            if (supporterRecords[id - 1]) {
-                printf("HAS RECORDS (0-FALSE, 1-TRUE): 1\n");
-            } else {
-                printf("HAS RECORDS (0-FALSE, 1-TRUE): 0\n");
-            }
             //Se realiza impresión del tipo de membresía
-            printf("MEMBERSHIP TYPE: %d\n", supporterMembershipTypes[id - 1]);
+            printf("MEMBERSHIP TYPE (1-BASE, 2-SILVER, 3-GOLD): %d\n", supporterMembershipTypes[id - 1]);
         }
     }
     

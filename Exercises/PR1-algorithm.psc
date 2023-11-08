@@ -16,16 +16,15 @@ algorithm UOCStadium
         supporterAges: vector[MAX_SUPPORTERS] of integer;
         supporterRecords: vector[MAX_SUPPORTERS] of boolean;
         membershipYears: vector[MAX_SUPPORTERS] of integer; {Cambio la variable a vector}
-        
-        i: integer;
-        numSupporters: integer;
-        recoveredSupporters: vector[MAX_SUPPORTERS] of integer;
         supporterMembershipTypes: vector[MAX_SUPPORTERS] of tMembershipType;
-        sumaAge: integer;
-        averageAge: real;
+        recoveredSupporters: vector[MAX_SUPPORTERS] of integer;
+        
+        numSupporters: integer;
         inputType: integer;
         selectedMembershipType: tMembershipType;
-
+        sumaAge: integer;
+        averageAge: real;
+        i: integer;
     end var
 
     {Exercise 2.1}
@@ -45,16 +44,20 @@ algorithm UOCStadium
         
     {Exercise 2.2}
     {Data input}
-    sumaAge := 0;
-    averageAge := 0.0;
+    
+    sumaAge := 0
+    averageAge := 0.0
 
+    {Se recogen los datos de cada SUPPORTERS}
     for i := 1 to numSupporters do
         writeString("SUPPORTER #" + toString(i)); 
+
+        writeString("ID (AN INTEGER)?"); 
         supporterIds[i] := i
 
         writeString("AGE (AN INTEGER)?"); 
         supporterAges[i] := readInteger();
-        sumaAge := sumaAge + supporterAges[i]; {Acumulo la suma de edades de cada uno}
+        sumaAge := sumaAge + supporterAges[i];
 
         writeString("HAS RECORDS (0-FALSE, 1-TRUE)? ");
         supporterRecords[i] := readBoolean();
@@ -112,16 +115,19 @@ algorithm UOCStadium
     {Exercise 2.4}
     {Data Outputs}
     if length(recoveredSupporters) = 0 then
+        writeString("RESULTS");
+        writeString("AVERAGE SUPPORTER AGE: " + toString(averageAge));
         writeString("NO SUPPORTERS RECOVERED.");
     else
         writeString("RESULTS");
         writeString("AVERAGE SUPPORTER AGE: " + toString(averageAge));
-        for i := 1 to length(recoveredSupporters) do
+
+        for i := 0 to length(recoveredSupporters) do
             writeString("SUPPORTER ID: " + toString(recoveredSupporters[i]));
             writeString("AGE: " + toString(supporterAges[recoveredSupporters[i]]));
             writeString("HAS RECORDS (0-FALSE, 1-TRUE): " + toString(if supporterRecords[recoveredSupporters[i]] then 1 else 0));
             writeString("MEMBERSHIP TYPE: " + toString(supporterMembershipTypes[recoveredSupporters[i]]));
         end for
     end if
-
+    
 end algorithm
