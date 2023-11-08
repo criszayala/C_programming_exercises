@@ -86,7 +86,7 @@ int main() {
         }
     }
 
-    //Se imprime por pantall los resultados
+    //Se imprime por pantalla los resultados
     printf("RESULTS\n");
     if (recoveredCount == 0) {
         printf("AVERAGE SUPPORTER AGE: %.2f\n", averageAge);
