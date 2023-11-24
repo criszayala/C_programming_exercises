@@ -75,17 +75,16 @@ function getPoints(supporter: tSupporter) return integer
 
     { Determinar los puntos basados en el tipo de membresía }
     points := 0
-    switch (supporter.membershipType) do
-        case BASE:
-            points := BASE_MEMBERSHIP_POINTS
-        case SILVER:
-            points := SILVER_MEMBERSHIP_POINTS
-        case GOLD:
-            points := GOLD_MEMBERSHIP_POINTS
-    end switch
+    if supporter.membershipType = BASE then
+        points := BASE_MEMBERSHIP_POINTS
+    elseif supporter.membershipType = SILVER then
+        points := SILVER_MEMBERSHIP_POINTS
+    elseif supporter.membershipType = GOLD then
+        points := GOLD_MEMBERSHIP_POINTS
+    end if
 
     { Aplicar penalización si el aficionado tiene antecedentes penales }
-    if (supporter.hasRecords) then
+    if supporter.hasRecords then
         points := points - RECORDS_PENALTY_POINTS
     end if
 
