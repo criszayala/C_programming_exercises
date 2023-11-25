@@ -3,8 +3,9 @@
 //También se debe el archivo 'pseudoconfig' en C:>users>Cristian archivo
 //PSeint
 "files.associations": {
-    "*.psc": "pseudocode"
-  },
+  "*.psc": "pseudocode",
+  "pr2-FINAL.C": "cpp"
+},
 "editor.semanticHighlighting.enabled": true,
 "C_Cpp.errorSquiggles": "disabled",
 //PSeint
