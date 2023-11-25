@@ -1,111 +1,109 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 
-//Se definen las constantes
-#define MIN_SUPPORTERS 1
-#define MAX_SUPPORTERS 10
+#define NUM_SUPPORTERS 3
 #define BASE_MEMBERSHIP_YEARS 5
 #define SILVER_MEMBERSHIP_YEARS 10
+#define BASE_MEMBERSHIP_POINTS 10
+#define SILVER_MEMBERSHIP_POINTS 15
+#define GOLD_MEMBERSHIP_POINTS 20
+#define RECORDS_PENALTY_POINTS 5
+
+typedef enum {
+    BASE, SILVER, GOLD
+} tMembershipType;
+
+typedef struct {
+    char name[26];
+    int age;
+    int membershipYears;
+    bool hasRecords;
+    tMembershipType membershipType;
+} tSupporter;
+
+void supporterCpy(tSupporter *supporterDst, tSupporter supporterSrc) {
+    strcpy(supporterDst->name, supporterSrc.name);
+    supporterDst->age = supporterSrc.age;
+    supporterDst->membershipYears = supporterSrc.membershipYears;
+    supporterDst->hasRecords = supporterSrc.hasRecords;
+    // Note: Assuming membershipType is also to be copied
+    supporterDst->membershipType = supporterSrc.membershipType;
+}
+
+tMembershipType getMembershipType(int membershipYears) {
+    if (membershipYears <= BASE_MEMBERSHIP_YEARS) {
+        return BASE;
+    } else if (membershipYears <= SILVER_MEMBERSHIP_YEARS) {
+        return SILVER;
+    } else {
+        return GOLD;
+    }
+}
+
+void readSupporter(tSupporter *supporter) {
+    printf("Ingrese el nombre del seguidor (max 25 caracteres, sin espacios): ");
+    scanf("%25s", supporter->name);
+    
+    printf("Ingrese la edad del seguidor (un entero): ");
+    scanf("%d", &supporter->age);
+    
+    printf("Ingrese los años de membresía del seguidor (un entero): ");
+    scanf("%d", &supporter->membershipYears);
+    
+    printf("El seguidor tiene antecedentes (0 para NO, 1 para SÍ): ");
+    scanf("%d", (int *)&supporter->hasRecords);
+
+    supporter->membershipType = getMembershipType(supporter->membershipYears);
+}
+
+int getPoints(tSupporter supporter) {
+    int points = 0;
+    switch (supporter.membershipType) {
+        case BASE: points = BASE_MEMBERSHIP_POINTS; break;
+        case SILVER: points = SILVER_MEMBERSHIP_POINTS; break;
+        case GOLD: points = GOLD_MEMBERSHIP_POINTS; break;
+    }
+
+    if (supporter.hasRecords) {
+        points -= RECORDS_PENALTY_POINTS;
+    }
+
+    return points;
+}
+
+void writeSupporter(tSupporter supporter) {
+    printf("Nombre: %s\n", supporter.name);
+    printf("Edad: %d\n", supporter.age);
+    printf("Años de Membresía: %d\n", supporter.membershipYears);
+    printf("Tiene Antecedentes: %d\n", supporter.hasRecords);
+    printf("Tipo de Membresía: %d\n", supporter.membershipType);
+}
 
 int main() {
-    //Se declaran las variables y arreglos
-    int supporterIds[MAX_SUPPORTERS];
-    int supporterAges[MAX_SUPPORTERS];
-    bool supporterRecords[MAX_SUPPORTERS];
-    int membershipYears[MAX_SUPPORTERS];
-    int recoveredSupporters[MAX_SUPPORTERS];
-    int supporterMembershipTypes[MAX_SUPPORTERS];
-    int numSupporters;
-    int inputType;
-    int selectedMembershipType;
-    int sumaAge = 0;
-    int recoveredCount = 0;
-    float averageAge = 0.0;
-        
-    //Se realiza la solicitud de cantidad de SUPPORTERS
-    printf("INPUT DATA\n");
-    printf("NUMBER OF SUPPORTERS (1-10)?\n");
-    scanf("%d", &numSupporters);
+    tSupporter supporters[NUM_SUPPORTERS];
+    tSupporter selectedSupporter;
+    int i, maxPoints, currentPoints;
 
-    //Se realiza validación del número de SUPPORTERS ingresado
-    while (numSupporters < MIN_SUPPORTERS || numSupporters > MAX_SUPPORTERS) {
-        printf("INVALID DATA, TRY AGAIN!\n");
-        printf("NUMBER OF SUPPORTERS(1-10)?\n");
-        scanf("%d", &numSupporters);
+    printf("DATOS DE ENTRADA\n");
+    for (i = 0; i < NUM_SUPPORTERS; i++) {
+        readSupporter(&supporters[i]);
     }
 
-    //Se recogen los datos de cada SUPPORTERS
-    for (int i = 0; i < numSupporters; i++) {
-        printf("SUPPORTER #%d\n", i + 1);
+    selectedSupporter = supporters[0];
+    maxPoints = getPoints(selectedSupporter);
 
-        printf("ID (AN INTEGER)?\n");
-        scanf("%d", &supporterIds[i]);
-
-        printf("AGE (AN INTEGER)?\n");
-        scanf("%d", &supporterAges[i]);
-        sumaAge += supporterAges[i];
-
-        printf("HAS RECORDS (0-FALSE, 1-TRUE)?\n");
-        scanf("%d", (int*)&supporterRecords[i]);
-
-        printf("MEMBERSHIP YEARS (AN INTEGER)?\n");
-        scanf("%d", &membershipYears[i]);
-
-        //Se realiza la asignación del tipo de membresía
-        if (membershipYears[i] <= BASE_MEMBERSHIP_YEARS) {
-            supporterMembershipTypes[i] = 1; //BASE
-        } else if (membershipYears[i] <= SILVER_MEMBERSHIP_YEARS) {
-            supporterMembershipTypes[i] = 2; //SILVER
-        } else {
-            supporterMembershipTypes[i] = 3; //GOLD
-        }
-    }
-    //Si es mayor a cero se realiza el cálculo de la edad promedio
-    if (numSupporters > 0) {
-        averageAge = (float)sumaAge / numSupporters;
-    }
-    
-    //Se solicita el tipo de membresía para luego realizar la búsqueda
-    printf("LOOKING FOR SUPPORTERS\n");
-    printf("MEMBERSHIP TYPE (1-BASE, 2-SILVER, 3-GOLD)?\n");
-    scanf("%d", &selectedMembershipType);
-
-    //Se valida el valor ingresado de la membresía, en caso de ingresar valor inválido se despliega mensaje de error
-    while (selectedMembershipType < 1 || selectedMembershipType > 3) {
-        printf("INVALID TYPE, TRY AGAIN!\n");
-        printf("MEMBERSHIP TYPE (1-BASE, 2-SILVER, 3-GOLD)?\n");
-        scanf("%d", &selectedMembershipType);
-    }
-
-    //Se realiza búsqueda de SUPPORTERS que cumplen con el criterio solicitado
-    for (int i = 0; i < numSupporters; i++) {
-        if (supporterMembershipTypes[i] == selectedMembershipType &&
-            supporterAges[i] <= averageAge &&
-            !supporterRecords[i]) {
-            recoveredSupporters[recoveredCount++] = supporterIds[i];
+    for (i = 1; i < NUM_SUPPORTERS; i++) {
+        currentPoints = getPoints(supporters[i]);
+        if (currentPoints > maxPoints ||
+            (currentPoints == maxPoints && supporters[i].membershipYears > selectedSupporter.membershipYears)) {
+            supporterCpy(&selectedSupporter, supporters[i]);
+            maxPoints = currentPoints;
         }
     }
 
-    //Se imprime por pantalla los resultados
-    printf("RESULTS\n");
-    if (recoveredCount == 0) {
-        printf("AVERAGE SUPPORTER AGE: %.2f\n", averageAge);
-        printf("NO SUPPORTERS RECOVERED.\n");
-    } else {
-        printf("AVERAGE SUPPORTER AGE: %.2f\n", averageAge);
+    printf("SEGUIDOR SELECCIONADO\n");
+    writeSupporter(selectedSupporter);
 
-        for (int i = 0; i < recoveredCount; i++) {
-            int id = recoveredSupporters[i];
-            printf("SUPPORTER ID: %d\n", id);
-            printf("AGE: %d\n", supporterAges[id - 1]);
-            printf("HAS RECORDS (0-FALSE, 1-TRUE): %d\n", supporterRecords[id - 1]);
-
-            //Se realiza impresión del tipo de membresía
-            printf("MEMBERSHIP TYPE (1-BASE, 2-SILVER, 3-GOLD): %d\n", supporterMembershipTypes[id - 1]);
-        }
-    }
-    
-    getchar();  //Se limpia el buffer del último '\n'
-    getchar();  //Se Espera una entrada del teclado antes de cerrar la terminal
     return 0;
 }
