@@ -47,7 +47,7 @@ tMembershipType getMembershipType(int membershipYears) {
 int getPoints(tSupporter supporter) {
     int points = 0;
     
-    //Hago la asignación de la puntuación dependiendo el tipo de membresía
+    //Asigno puntuación dependiendo el tipo de membresía
     if (supporter.membershipType == BASE) {
         points = BASE_MEMBERSHIP_POINTS;
     } else if (supporter.membershipType == SILVER) {
@@ -56,14 +56,15 @@ int getPoints(tSupporter supporter) {
         points = GOLD_MEMBERSHIP_POINTS;
     }
 
-    //Agrego if para aplicar la penalización si tiene antecedentes
+    //Si el SUPPORTER tiene antecedentes aplico la penalización
     if (supporter.hasRecords) {
         points -= RECORDS_PENALTY_POINTS;
     }
 
     return points;
 }
-//Defino función para obtener información del SUPPORT
+
+//Defino función para obtener información de los SUPPORTERS
 void readSupporter(tSupporter *supporter) {
     printf("NAME (25 CHAR MAX, NO SPACES)?\n");
     scanf("%25s", supporter->name);
@@ -91,13 +92,12 @@ void writeSupporter(tSupporter supporter) {
     printf("POINTS: %d\n", getPoints(supporter));
 }
 
-//Acá inicia la lógica principal del programa
 int main() {
     tSupporter supporters[NUM_SUPPORTERS];
     tSupporter selectedSupporter;
     int i, maxPoints, currentPoints;
 
-    //Solicita al usuario que ingrese los datos de los seguidores
+    //Solicito al usuario que ingrese los datos de cada SUPORTERS
     printf("INPUT DATA\n");
     for (i = 0; i < NUM_SUPPORTERS; i++) {
         readSupporter(&supporters[i]);
@@ -106,7 +106,7 @@ int main() {
     selectedSupporter = supporters[0];
     maxPoints = getPoints(selectedSupporter);
 
-    //Se realiza iteración para identificar el SUPPORTER que tiene más puntos
+    //Esto me sirve para identificar el SUPPORTER que tiene más puntos
     for (i = 1; i < NUM_SUPPORTERS; i++) {
         currentPoints = getPoints(supporters[i]);
         if (currentPoints > maxPoints ||
