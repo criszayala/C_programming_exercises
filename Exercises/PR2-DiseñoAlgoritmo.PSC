@@ -1,7 +1,4 @@
 const
-    //MIN_SUPPORTERS: integer = 1
-    //MAX_SUPPORTERS: integer = 10
-
     NUM_SUPPORTERS: integer = 3;
     BASE_MEMBERSHIP_YEARS: integer = 5;
     SILVER_MEMBERSHIP_YEARS: integer = 10;
@@ -30,7 +27,7 @@ end type
 function getMembershipType(membershipYears: integer) return tMembershipType
     if membershipYears <= BASE_MEMBERSHIP_YEARS then
         return BASE
-    elseif membershipYears <= SILVER_MEMBERSHIP_YEARS then
+    else if membershipYears <= SILVER_MEMBERSHIP_YEARS then
         return SILVER
     else
         return GOLD
@@ -39,33 +36,30 @@ end function
 
 {Exercise 2.2}
 action readSupporter(var supporter: tSupporter)
-    writeString("Please enter the supporter's name:")
+    writeString("NAME (25 CHAR MAX, NO SPACES)?")
     supporter.name := readString()
     
-    writeString("Please enter the supporter's age:")
+    writeString("AGE (AN INTEGER)?")
     supporter.age := readInteger()
     
-    writeString("Please enter the supporter's membership years:")
+    writeString("MEMBERSHIP YEARS (AN INTEGER)?")
     supporter.membershipYears := readInteger()
     
-    writeString("Does the supporter have any records? (true/false):")
+    writeString("HAS RECORDS (0-FALSE, 1-TRUE)?")
     supporter.hasRecords := readBoolean()
+
+    supporter.membershipType := getMembershipType(supporter.membershipYears)
+
 end action
 
 {Exercise 2.3}
 action writeSupporter(supporter: tSupporter)
-    writeString("Name: " + supporter.name)
-    writeString("Age: " + toString(supporter.age))
-    writeString("Membership Years: " + toString(supporter.membershipYears))
-    writeString("Has Records: " + toString(supporter.hasRecords))
-    
-    { Llamada a la función getMembershipType para obtener el tipo de membresía }
-    var membershipType: tMembershipType
-    membershipType := getMembershipType(supporter.membershipYears)
-    
-    { Llamada a la acción writeMembershipType para mostrar el tipo de membresía }
-    writeString("Membership Type: ")
-    writeMembershipType(membershipType)
+    writeString("NAME: " + supporter.name)
+    writeString("AGE: 2 " + toString(supporter.age))
+    writeString("MEMBERSHIP YEARS:  " + toString(supporter.membershipYears))
+    writeString("HAS RECORDS (0-FALSE, 1-TRUE): " + toString(supporter.hasRecords))
+    writeString("MEMBERSHIP TYPE (1-BASE, 2-SILVER, 3-GOLD): ")
+    writeMembershipType(supporter.membershipType)
 end action
 
 {Exercise 2.4}
@@ -73,13 +67,13 @@ function getPoints(supporter: tSupporter) return integer
     var
         points: integer
 
-    { Determinar los puntos basados en el tipo de membresía }
+    { Asignar puntos basados en el tipo de membresía }
     points := 0
     if supporter.membershipType = BASE then
         points := BASE_MEMBERSHIP_POINTS
-    elseif supporter.membershipType = SILVER then
+    else if supporter.membershipType = SILVER then
         points := SILVER_MEMBERSHIP_POINTS
-    elseif supporter.membershipType = GOLD then
+    else if supporter.membershipType = GOLD then
         points := GOLD_MEMBERSHIP_POINTS
     end if
 
@@ -90,7 +84,6 @@ function getPoints(supporter: tSupporter) return integer
 
     return points
 end function
-
 
 algorithm UOCStadium
     var
@@ -107,33 +100,32 @@ algorithm UOCStadium
     for i := 1 to NUM_SUPPORTERS do
         writeString("Enter data for supporter #" + toString(i) + ":")
         
-        writeString("Name:")
+        writeString("NAME: ")
         supporters[i].name := readString()
         
-        writeString("Age:")
+        writeString("AGE: ")
         supporters[i].age := readInteger()
         
-        writeString("Membership Years:")
+        writeString("MEMBERSHIP YEARS: ")
         supporters[i].membershipYears := readInteger()
         
-        writeString("Has Records (true/false):")
+        writeString("HAS RECORDS (0-FALSE, 1-TRUE):")
         supporters[i].hasRecords := readBoolean()
-        
-        { Aquí se puede utilizar la función getMembershipType para determinar el tipo de membresía }
-        supporters[i].membershipType := getMembershipType(supporters[i].membershipYears)
     end for
 
     {Exercise 2.6}
     {Data processing}
-    {Base case: consider the first supporter as selected}
+
+    {Base case: consider the selected supporter the first}
     selectedSupporter := supporters[1]
     maxPoints := getPoints(selectedSupporter)
 
-    {Looking for the supporter with the highest score}
+    {Looking for the supporter to select}
     for i := 2 to NUM_SUPPORTERS do
         currentPoints := getPoints(supporters[i])
+        { If current supporter has more points or the same points but more membership years }
         if (currentPoints > maxPoints) or 
-           (currentPoints = maxPoints and supporters[i].membershipYears > selectedSupporter.membershipYears) then
+        (currentPoints = maxPoints and supporters[i].membershipYears > selectedSupporter.membershipYears) then
             selectedSupporter := supporters[i]
             maxPoints := currentPoints
         end if
@@ -142,4 +134,125 @@ algorithm UOCStadium
     {Data output}
     writeString("SELECTED SUPPORTER")
     writeSupporter(selectedSupporter)
+end algorithm
+
+
+
+const
+    NUM_SUPPORTERS: integer = 3;  // Número máximo de seguidores
+    BASE_MEMBERSHIP_YEARS: integer = 5;  // Años para membresía BASE
+    SILVER_MEMBERSHIP_YEARS: integer = 10;  // Años para membresía SILVER
+    
+    BASE_MEMBERSHIP_POINTS: integer = 10;  // Puntos para membresía BASE
+    SILVER_MEMBERSHIP_POINTS: integer = 15;  // Puntos para membresía SILVER
+    GOLD_MEMBERSHIP_POINTS: integer = 20;  // Puntos para membresía GOLD
+
+    RECORDS_PENALTY_POINTS: integer = 5;  // Penalización de puntos por antecedentes penales
+end const
+
+type
+    tMembershipType = enumeration {BASE, SILVER, GOLD}  // Tipos de membresía disponibles
+end type
+
+type
+    tSupporter = record
+        name: string;  // Nombre del seguidor
+        age: integer;  // Edad del seguidor
+        membershipYears: integer;  // Años de membresía del seguidor
+        hasRecords: boolean;  // Indica si el seguidor tiene antecedentes penales
+    end record
+end type
+
+// Función para obtener el tipo de membresía basado en los años de membresía
+function getMembershipType(membershipYears: integer) return tMembershipType
+    if membershipYears <= BASE_MEMBERSHIP_YEARS then
+        return BASE
+    else if membershipYears <= SILVER_MEMBERSHIP_YEARS then
+        return SILVER
+    else
+        return GOLD
+    end if
+end function
+
+// Acción para leer los datos de un seguidor desde la entrada estándar
+action readSupporter(var supporter: tSupporter)
+    writeString("Ingrese el nombre del seguidor (máx 25 caracteres, sin espacios):")
+    supporter.name := readString()
+    
+    writeString("Ingrese la edad del seguidor (un entero):")
+    supporter.age := readInteger()
+    
+    writeString("Ingrese los años de membresía del seguidor (un entero):")
+    supporter.membershipYears := readInteger()
+    
+    writeString("El seguidor tiene antecedentes (0 para NO, 1 para SÍ):")
+    supporter.hasRecords := readBoolean()
+
+    supporter.membershipType := getMembershipType(supporter.membershipYears)
+end action
+
+// Acción para escribir los datos de un seguidor a la salida estándar
+action writeSupporter(supporter: tSupporter)
+    writeString("Nombre: " + supporter.name)
+    writeString("Edad: " + toString(supporter.age))
+    writeString("Años de Membresía: " + toString(supporter.membershipYears))
+    writeString("Tiene Antecedentes: " + toString(supporter.hasRecords))
+    writeString("Tipo de Membresía: ")
+    writeMembershipType(supporter.membershipType)
+end action
+
+// Función para obtener la puntuación de un seguidor
+function getPoints(supporter: tSupporter) return integer
+    var
+        points: integer  // Puntos del seguidor
+
+    points := 0
+    if supporter.membershipType = BASE then
+        points := BASE_MEMBERSHIP_POINTS
+    else if supporter.membershipType = SILVER then
+        points := SILVER_MEMBERSHIP_POINTS
+    else if supporter.membershipType = GOLD then
+        points := GOLD_MEMBERSHIP_POINTS
+    end if
+
+    if supporter.hasRecords then
+        points := points - RECORDS_PENALTY_POINTS  // Penalizar si hay antecedentes
+    end if
+
+    return points
+end function
+
+// Algoritmo principal
+algorithm UOCStadium
+    // Definición de variables
+    var
+        supporters: vector[NUM_SUPPORTERS] of tSupporter  // Vector para almacenar seguidores
+        selectedSupporter: tSupporter  // Seguidor seleccionado
+        i: integer  // Contador para bucles
+        maxPoints: integer  // Puntos máximos encontrados
+        currentPoints: integer  // Puntos del seguidor actual
+    end var
+
+    // Entrada de datos
+    writeString("DATOS DE ENTRADA")
+    for i := 1 to NUM_SUPPORTERS do
+        readSupporter(supporters[i])  // Leer los datos de cada seguidor
+    end for
+
+    // Procesamiento de datos
+    selectedSupporter := supporters[1]  // Considerar al primer seguidor como seleccionado inicialmente
+    maxPoints := getPoints(selectedSupporter)  // Calcular puntos del seguidor seleccionado
+
+    for i := 2 to NUM_SUPPORTERS do
+        currentPoints := getPoints(supporters[i])  // Calcular puntos del seguidor actual
+        if (currentPoints > maxPoints) or 
+           (currentPoints = maxPoints and supporters[i].membershipYears > selectedSupporter.membershipYears) then
+            selectedSupporter := supporters[i]  // Actualizar el seguidor seleccionado si es necesario
+            maxPoints := currentPoints  // Actualizar los puntos máximos
+        end if
+    end for
+
+    // Salida de datos
+    writeString("SEGUIDOR SELECCIONADO")
+    writeSupporter(selectedSupporter)  // Mostrar datos del seguidor seleccionado
 end algorithm
