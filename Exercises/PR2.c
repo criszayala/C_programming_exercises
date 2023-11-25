@@ -34,7 +34,7 @@ void supporterCpy(tSupporter *supporterDst, tSupporter supporterSrc) {
     supporterDst->membershipType = supporterSrc.membershipType;
 }
 
-//Defino función que determina el tipo de membresía según los años
+//Defino la función que determina el tipo de membresía según los años
 tMembershipType getMembershipType(int membershipYears) {
     if (membershipYears <= BASE_MEMBERSHIP_YEARS) {
         return BASE;
@@ -48,7 +48,7 @@ tMembershipType getMembershipType(int membershipYears) {
 int getPoints(tSupporter supporter) {
     int points = 0;
     
-    //Asigno puntuación dependiendo el tipo de membresía
+    //Asigno una puntuación dependiendo el tipo de membresía
     if (supporter.membershipType == BASE) {
         points = BASE_MEMBERSHIP_POINTS;
     } else if (supporter.membershipType == SILVER) {
@@ -69,21 +69,19 @@ int getPoints(tSupporter supporter) {
 void readSupporter(tSupporter *supporter) {
     printf("NAME (25 CHAR MAX, NO SPACES)?\n");
     scanf("%25s", supporter->name);
-    
     printf("AGE (AN INTEGER)?\n");
     scanf("%d", &supporter->age);
-    
     printf("MEMBERSHIP YEARS (AN INTEGER)?\n");
     scanf("%d", &supporter->membershipYears);
-    
     int hasRecords;
     printf("HAS RECORDS (0-FALSE, 1-TRUE)?\n");
     scanf("%d", &hasRecords);
+
     supporter->hasRecords = hasRecords;
     supporter->membershipType = getMembershipType(supporter->membershipYears);
 }
 
-//Se define esta función para mostrar por pantalla la información del SUPPORTER
+//Defino esta función para mostrar por pantalla la información del SUPPORTER
 void writeSupporter(tSupporter supporter) {
     printf("NAME: %s\n", supporter.name);
     printf("AGE: %d\n", supporter.age);
