@@ -81,7 +81,7 @@ void readSupporter(tSupporter *supporter) {
     supporter->membershipType = getMembershipType(supporter->membershipYears);
 }
 
-//Defino esta función para mostrar por pantalla la información del SUPPORTER
+//Defino esta función para mostrar la información del SUPPORTER
 void writeSupporter(tSupporter supporter) {
     printf("NAME: %s\n", supporter.name);
     printf("AGE: %d\n", supporter.age);
@@ -105,7 +105,7 @@ int main() {
     selectedSupporter = supporters[0];
     maxPoints = getPoints(selectedSupporter);
 
-    //Esto me sirve para identificar el SUPPORTER que tiene más puntos
+    //Se identifica el SUPPORTER que tiene más puntos
     for (i = 1; i < NUM_SUPPORTERS; i++) {
         currentPoints = getPoints(supporters[i]);
         if (currentPoints > maxPoints ||
