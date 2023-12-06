@@ -41,10 +41,12 @@ void pickBestBulb(const Bulb *first, const Bulb *second, Bulb *best) {
         transferBulb(first, best);
     } else if (first->energyClass > second->energyClass) {
         transferBulb(second, best);
-    } else if (first->price < second->price) {
-        transferBulb(first, best);
     } else {
-        transferBulb(first, best);
+        if (first->price <= second->price) {
+            transferBulb(first, best);
+        } else {
+            transferBulb(second, best);
+        }
     }
 }
 
