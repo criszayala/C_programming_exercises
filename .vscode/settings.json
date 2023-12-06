@@ -4,7 +4,8 @@
 //PSeint
 "files.associations": {
   "*.psc": "pseudocode",
-  "pr2-FINAL.C": "cpp"
+  "pr2-FINAL.C": "cpp",
+  "lightbulb.h": "c"
 },
 "editor.semanticHighlighting.enabled": true,
 "C_Cpp.errorSquiggles": "disabled",
