@@ -1,6 +1,5 @@
 #include "lightbulb.h"
 
-//Función principal del programa
 int main() {
     Bulb firstBulb, secondBulb, bestBulb;
 

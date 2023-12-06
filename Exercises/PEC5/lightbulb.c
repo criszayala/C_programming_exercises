@@ -32,14 +32,14 @@ void getInputBulb(Bulb *newBulb) {
     scanf("%d", &newBulb->efficacy);
     printf("PRICE?\n");
     scanf("%f", &newBulb->price);
-    newBulb->class = classifyEfficacy(newBulb->efficacy);
+    newBulb->energyClass = classifyEfficacy(newBulb->efficacy);
 }
 
 //Comparo las dos bombillas y selecciono la mejor teniendo en cuenta el precio y la eficiencia
 void pickBestBulb(const Bulb *first, const Bulb *second, Bulb *best) {
-    if (first->class < second->class) {
+    if (first->energyClass < second->energyClass) {
         transferBulb(first, best);
-    } else if (first->class > second->class) {
+    } else if (first->energyClass > second->energyClass) {
         transferBulb(second, best);
     } else if (first->price < second->price) {
         transferBulb(first, best);
@@ -47,25 +47,11 @@ void pickBestBulb(const Bulb *first, const Bulb *second, Bulb *best) {
         transferBulb(second, best);
     }
 }
-/*
+
 //Por último imprimo por pantalla la mejor opción con sus características
-void showBulb(const Bulb *bulb)  {
+void showBulb(const Bulb *bulb) {
     printf("ID: %s\n", bulb->id);
     printf("EFFICIENCY: %d\n", bulb->efficacy);
     printf("PRICE: %.2f\n", bulb->price);
-    printf("ENERGY CLASS: %c\n", bulb->class);
-}*/
-
-void showBulb(const Bulb *bulb) {
-    // Imprime el ID de la bombilla.
-    printf("ID: %s\n", bulb->id);
-
-    // Imprime la eficacia de la bombilla en lúmenes por watt.
-    printf("EFFICIENCY: %d lm/W\n", bulb->efficacy);
-
-    // Imprime el precio de la bombilla en euros.
-    printf("PRICE: %.2f euros\n", bulb->price);
-
-    // Imprime la clase energética de la bombilla.
-    printf("ENERGY CLASS: %c\n", bulb->class);
+    printf("ENERGY CLASS: %c\n", bulb->energyClass);
 }

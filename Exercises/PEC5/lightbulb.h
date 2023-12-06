@@ -7,7 +7,7 @@ typedef struct {
     char id[11];
     int efficacy;
     float price;
-    char Class;
+    char energyClass;
 } Bulb;
 
 //Realizo la declaración de las funciones
