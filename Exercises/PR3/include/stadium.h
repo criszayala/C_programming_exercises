@@ -1,10 +1,3 @@
-/*
-* File: stadium.h
-* Author: UOC
-* Course: 20231
-* Description: PRA3
-*/
-
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -67,4 +60,3 @@ void supporterTableInit(tSupporterTable *tabSupporters);
 void supporterTableAdd(tSupporterTable *tabSupporters, tSupporter supporter, tError *retVal);
 /* Exercise 2.3 */
 float averageSpendingByEvent (tSupporter supporter, tEventType eventType);
-

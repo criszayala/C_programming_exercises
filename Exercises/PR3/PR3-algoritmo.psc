@@ -105,7 +105,7 @@ end var
     {Exercise 2.5}
     writeString("SELECT SUPPORTER (ID):");
     supporterId := readInteger();
-    retrieveSupporter(tabSupporters, supporterId, supporter, retVal); { Assuming this action is predefined to retrieve a supporter by ID }
+    retrieveSupporter(tabSupporters, supporterId, supporter, retVal);
 
     if retVal = OK then
         for i := 1 to supporter.tickets.nTickets do

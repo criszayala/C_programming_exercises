@@ -121,20 +121,37 @@ void selectSupporter (tSupporterTable tabSupporters, int supporterId, tSupporter
 /* Exercise 2.1 */
 void supporterTableInit(tSupporterTable *tabSupporters) 
 {
-	/* Empty table, no supporters*/
-	/* ... */
+    tabSupporters->nSupporters = 0;
 }
 
 /* Exercise 2.2 */
-void supporterTableAdd(tSupporterTable *tabSupporters, tSupporter supporter, tError *retVal) {	
-	/* ... */
+void supporterTableAdd(tSupporterTable *tabSupporters, tSupporter supporter, tError *retVal) {
+    if (tabSupporters->nSupporters < MAX_SUPPORTERS) {
+        tabSupporters->table[tabSupporters->nSupporters] = supporter;
+        tabSupporters->nSupporters++;
+        *retVal = OK;
+    } else {
+        *retVal = ERR_MEMORY;
+    }
 }
 
-
 /* Exercise 2.3 */
-float averageSpendingByEvent (tSupporter supporter, tEventType eventType) {
-	float avgSpending = 0.0;
-	/*..*/
-	
-	return avgSpending;
+float averageSpendingByEvent(tSupporter supporter, tEventType eventType) {
+    float avgSpending = 0.0;
+    float totalSpending = 0.0;
+    int count = 0;
+    int i;
+
+    for (i = 0; i < supporter.tickets.nTickets; i++) {
+        if (supporter.tickets.table[i].eventType == eventType) {
+            totalSpending += supporter.tickets.table[i].price;
+            count++;
+        }
+    }
+
+    if (count > 0) {
+        avgSpending = totalSpending / count;
+    }
+
+    return avgSpending;
 }
