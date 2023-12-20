@@ -31,7 +31,7 @@ int main(int argc, char **argv)
             for (i = 0; i < supporter.tickets.nTickets; i++) {
                 writeTicket(supporter.tickets.table[i]);
             }
-            printf("SELECT EVENT TYPE (1-FOOTBALL MATCH, 2-CONCERT, 3-EXPO): ");
+            printf("\nSELECT EVENT (1-FOOTBALL MATCH, 2-CONCERT, 3-EXPO): \n");
             scanf("%d", &eventType);
             averageSpending = averageSpendingByEvent(supporter, eventType);
             printf("AVERAGE SPENDING: %.2f\n", averageSpending);
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
         printf("NO SUPPORTERS RECOVERED\n");
     }
     
-    getchar();  //Se limpia el buffer del último '\n'
-    getchar();  //Se Espera una entrada del teclado antes de terminar
+    getchar();//Se limpia el buffer del último '\n'
+    getchar();//Se Espera una entrada del teclado antes de terminar
     return 0;
 }
