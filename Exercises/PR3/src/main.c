@@ -42,5 +42,7 @@ int main(int argc, char **argv)
         printf("NO SUPPORTERS RECOVERED\n");
     }
     
+    getchar();  //Se limpia el buffer del último '\n'
+    getchar();  //Se Espera una entrada del teclado antes de terminar
     return 0;
 }
